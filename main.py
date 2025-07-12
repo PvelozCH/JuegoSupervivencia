@@ -5,6 +5,9 @@ import os,json
 def clean_screen():
     os.system('clear')
 
+def clic_continuar():
+    input("Haz clic para continuar: ")
+
 def quitar_vida(personaje, cantidad):
     personaje.vida -= cantidad
     if personaje.vida <= 0:
@@ -35,7 +38,8 @@ def nuevo_refugio():
         os.makedirs('saves')
 
     # Crear la carpeta del refugio para saves
-    refugio_path = os.path.join('saves', f"Refugio{num_refugio}")
+    refugio_path = os.path.join('saves',
+    f"Refugio{num_refugio}")
     if not os.path.exists(refugio_path):
         os.makedirs(refugio_path)
         
@@ -45,12 +49,14 @@ def nuevo_refugio():
     personajes = []
     
     atributo_inicial = Atributos(0, 0, 0, 0, 0, 0)
-    arma_inicial = Arma(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    arma_inicial = Arma(0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0)
     
     #Se crean 5 personajes aleatorios
     for i in range(5):
         nombre_personaje = f"nom{i+1}"
-        personaje = Personaje(nombre_personaje, 100, "Generica", atributo_inicial, arma_inicial, 0)
+        personaje = Personaje(nombre_personaje, 100,
+        "Generica", atributo_inicial, arma_inicial, 0)
         personaje.setAtributos()
         personaje.setNombreAleatorio()
         personaje.setArmaAleatoria()
@@ -58,8 +64,10 @@ def nuevo_refugio():
         personajes.append(personaje)
         
         # Guardar personajes en un archivo JSON
-    with open(os.path.join(refugio_path, 'personajes.json'), 'w') as file:
-        json.dump([personaje.to_dict() for personaje in personajes], file, indent=4)
+    with open(os.path.join(refugio_path, 
+        'personajes.json'), 'w') as file:
+        json.dump([personaje.to_dict() for personaje in personajes],
+        file, indent=4)
         input("Presione Enter para continuar")
         
         
@@ -71,7 +79,23 @@ def opciones_refugio():
    print("2. Ver recursos")
    print("3. Listar habitantes")
    print("4. Salir")
-   
+
+#Eleccion dentro de un refugio cargado
+def elegir_opcion_refugio():
+    opcion = 0
+    while opcion != 4:
+        opciones_refugio()
+        opcion = int(input("Elige una opcion: "))
+        clean_screen()
+        if opcion == 1:
+            print("saliste a explorar...")
+            clic_continuar()
+        elif opcion == 2:
+            print("Recursos disponibles: ")
+            clic_continuar()
+        elif opcion == 3:
+            print("Lista de habitantes")
+            clic_continuar()    
     
 
 def cargar_partida():
@@ -83,15 +107,18 @@ def salir():
     
     
 
+
 # --- Función principal del juego
 
 def main():
+    #Muestra menu principal
     mostrar_menu_principal()
     opcion = int(input("Elige una opción: "))
+    #Crear refugio nuevo
     if opcion == 1:
             nuevo_refugio()
-            opciones_refugio()
-            
+            elegir_opcion_refugio()
+    #Cargar refugio ya existente
     elif opcion == 2:
             cargar_partida()
             opciones_refugio()
@@ -99,10 +126,6 @@ def main():
             salir()
     else:
             print("Opción no válida")
-    
-  
-    
-         
             
 
 if __name__ == "__main__":

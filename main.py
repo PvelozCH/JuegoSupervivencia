@@ -43,7 +43,7 @@ def nuevo_refugio():
     if not os.path.exists(refugio_path):
         os.makedirs(refugio_path)
         
-     #Se crean aleatorios los habitantes del refugio 
+     #Crear aleatoriamente a los habitantes del refugio 
      
      #Se crea lista de personajes 
     personajes = []
@@ -84,6 +84,7 @@ def opciones_refugio():
 def elegir_opcion_refugio():
     opcion = 0
     while opcion != 4:
+        #Muestra las opciones dentro del refugio
         opciones_refugio()
         opcion = int(input("Elige una opcion: "))
         clean_screen()
@@ -121,7 +122,7 @@ def main():
     #Cargar refugio ya existente
     elif opcion == 2:
             cargar_partida()
-            opciones_refugio()
+            elegir_opcion_refugio()
     elif opcion == 3:
             salir()
     else:

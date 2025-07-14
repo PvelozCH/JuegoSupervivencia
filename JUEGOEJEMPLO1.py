@@ -5,10 +5,10 @@ import random
 pygame.init()
 pixelesX = 800
 pixelesY = 600
-screen = pygame.display.set_mode((pixelesX, pixelesY)) #800 x 600 pixeles.
+screen = pygame.display.set_mode((pixelesX, pixelesY))
 clock = pygame.time.Clock()
 
-TILE_SIZE = 6 #Tamaño de cada cuadro.
+TILE_SIZE = 6  #Tamaño de cada cuadro.
 
 ## Cantidad de casillas por ancho y por largo
 cantCasillasX = int((pixelesX/TILE_SIZE)-1)
@@ -26,7 +26,7 @@ MONTAÑA = (139, 69, 19)
 relieves = []
 
 # Crear relieves aleatorios
-cantRelieves = 780
+cantRelieves = 750
 for _ in range(cantRelieves): # Crea x cantidad de relieves aleatorios
     x = random.randint(0, cantCasillasX)
     y = random.randint(0, cantCasillasY)
@@ -50,7 +50,8 @@ while running: # mientras se esté ejecutando
 
     # Dibujar relieves
     for x, y, color in relieves:
-        pygame.draw.rect(screen, color, (x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE))
+        pygame.draw.rect(screen, color, (x*TILE_SIZE, y*TILE_SIZE,
+         TILE_SIZE, TILE_SIZE))
 
     pygame.display.flip()
     clock.tick(30)

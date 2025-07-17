@@ -23,9 +23,10 @@ def mostrar_menu_principal():
     print("2. Cargar juego")
     print("3. Salir")
 
-#Creacion de nuevo refugio
+#Numero de refugio 
+num_refugio = 0
+#Creacion de nuevo refugio, devuelve el número del refugio
 def nuevo_refugio():
-    
     clean_screen()
     print("*Nuevo refugio*")
     #Se pide a usuario número de refugio 
@@ -69,6 +70,8 @@ def nuevo_refugio():
         json.dump([personaje.to_dict() for personaje in personajes],
         file, indent=4)
         input("Presione Enter para continuar")
+
+    return num_refugio
         
         
 #Menu al estar dentro de un refugio
@@ -91,6 +94,8 @@ def elegir_opcion_refugio():
         if opcion == 1:
             print("saliste a explorar...")
             clic_continuar()
+            #Muestra el mapa.
+            
         elif opcion == 2:
             print("Recursos disponibles: ")
             clic_continuar()
@@ -120,7 +125,6 @@ def main():
     if opcion == 1:
             nuevo_refugio()
             elegir_opcion_refugio()
-    #Cargar refugio ya existente
     elif opcion == 2:
             cargar_partida()
             elegir_opcion_refugio()

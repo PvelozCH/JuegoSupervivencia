@@ -112,6 +112,7 @@ def salir():
 # --- Función principal del juego
 
 def main():
+    clean_screen()
     #Muestra menu principal
     mostrar_menu_principal()
     opcion = int(input("Elige una opción: "))
@@ -125,6 +126,7 @@ def main():
             elegir_opcion_refugio()
     elif opcion == 3:
             salir()
+            clean_screen()
     else:
             print("Opción no válida")
             

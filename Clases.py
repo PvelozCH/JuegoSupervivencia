@@ -74,8 +74,8 @@ class Ambiente:
 		
 #Clase ATRIBUTOS
 class Atributos:
-	def __init__(self, strength,perception,endurance,carisma,inteligence,luck):
-		self.strenght=strength
+	def __init__(self, strenght,perception,endurance,carisma,inteligence,luck):
+		self.strenght=strenght
 		self.perception=perception
 		self.endurance=endurance
 		self.carisma=carisma

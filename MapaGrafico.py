@@ -103,7 +103,7 @@ def iniciarMapa(numRefugio):
 
                 # Dibujar personajes si es que existe
                 if celda.objeto and isinstance(celda.objeto, Personaje):
-                    pygame.draw.circle(screen, (255,255,0),
+                    pygame.draw.circle(screen, (0,255,247),
                                        (celda.x * TILE_SIZE + TILE_SIZE // 2,
                                         celda.y * TILE_SIZE + TILE_SIZE // 2),
                                        TILE_SIZE // 2)

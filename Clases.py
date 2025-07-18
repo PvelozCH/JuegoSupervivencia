@@ -39,7 +39,6 @@ class Personaje:
     	      aleatorio = random.choice(nombres)
     	      nomJ = aleatorio['nombre']
     	      apJ = aleatorio['apellido']
-    	      
     	      self.nombre = nomJ+" "+apJ
     	      
     def to_dict(self):
@@ -66,13 +65,15 @@ class Personaje:
 		
 #Clase criatura o enemigo
 class Criatura:
-     def __init__(self, nombre, vida, clase,atributos,arma,inventario):
+     def __init__(self, nombre, vida, clase,atributos,arma,inventario,tipo):
         self.nombre = nombre
         self.vida = vida
         self.clase = clase
         self.atributos=atributos
         self.arma=arma
         self.inventario=inventario
+        self.tipo = tipo
+        
 
 #Clase ATRIBUTOS
 class Atributos:

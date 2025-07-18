@@ -1,10 +1,11 @@
+#MAPA GRAFICO
 import pygame
 import random
 #Para conectar personajes y elementos dentro del mapa.
 from Clases import Personaje,Atributos,Arma
 import json
 
-def iniciarMapa():
+def iniciarMapa(numRefugio):
     # Inicializar Pygame
     pygame.init()
     pixelesX = 800
@@ -54,7 +55,7 @@ def iniciarMapa():
     
     #Cargar personajes desde JSON
     #Como prueba solo conecta con Refugio1 en duro
-    ruta_personajes = f"saves/Refugio1/personajes.json"
+    ruta_personajes = f"saves/Refugio{numRefugio}/personajes.json"
 
     personajes = [] #Lista dinámica de personajes dentro del mapa
     try:

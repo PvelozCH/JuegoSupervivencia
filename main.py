@@ -1,5 +1,7 @@
+#CLASE MAIN - PRINCIPAL
 from Clases import Personaje, Atributos, Arma, Ambiente, Item
 import os,json
+import MapaGrafico as mapa
 
 # --- Métodos dentro del juego
 def clean_screen():
@@ -84,7 +86,7 @@ def opciones_refugio():
    print("4. Salir")
 
 #Eleccion dentro de un refugio cargado
-def elegir_opcion_refugio():
+def elegir_opcion_refugio(numRefugio):
     opcion = 0
     while opcion != 4:
         #Muestra las opciones dentro del refugio
@@ -93,9 +95,7 @@ def elegir_opcion_refugio():
         clean_screen()
         if opcion == 1:
             print("saliste a explorar...")
-            clic_continuar()
-            #Muestra el mapa.
-            
+            mapa.iniciarMapa(numRefugio)
         elif opcion == 2:
             print("Recursos disponibles: ")
             clic_continuar()
@@ -123,11 +123,11 @@ def main():
     opcion = int(input("Elige una opción: "))
     #Crear refugio nuevo
     if opcion == 1:
-            nuevo_refugio()
-            elegir_opcion_refugio()
+            elegir_opcion_refugio(nuevo_refugio())
     elif opcion == 2:
             cargar_partida()
-            elegir_opcion_refugio()
+            num=input(int("Ingrese el refugio al que quiere entrar: "))
+            elegir_opcion_refugio(num)
     elif opcion == 3:
             salir()
             clean_screen()

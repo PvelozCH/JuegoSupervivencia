@@ -20,9 +20,9 @@ def iniciarMapa(numRefugio):
     cantCasillasY = int((pixelesY/TILE_SIZE))
 
     # Colores de cada cuadro. (RGB)
-    VERDE = (34, 139, 34)     # Terreno base
-    AGUA = (0, 191, 255)
-    ROCA = (120, 120, 120)
+    VERDE = (0, 100, 0) # verde base 
+    AGUA = (0, 48, 0)   #verde muy oscuro
+    ROCA = (120, 120, 120) 
     ARENA = (200, 200, 50)
     MONTAÑA = (139, 69, 19)
 
@@ -43,7 +43,7 @@ def iniciarMapa(numRefugio):
         mapa.append(fila)
 
     # Crear relieves aleatorios
-    cantRelieves = 300
+    cantRelieves = 375
     for _ in range(cantRelieves): # Crea x cantidad de relieves aleatorios
         x = random.randint(0, cantCasillasX - 1)
         y = random.randint(0, cantCasillasY - 1)
@@ -54,7 +54,6 @@ def iniciarMapa(numRefugio):
     
     
     #Cargar personajes desde JSON
-    #Como prueba solo conecta con Refugio1 en duro
     ruta_personajes = f"saves/Refugio{numRefugio}/personajes.json"
 
     personajes = [] #Lista dinámica de personajes dentro del mapa
@@ -104,10 +103,10 @@ def iniciarMapa(numRefugio):
 
                 # Dibujar personajes si es que existe
                 if celda.objeto and isinstance(celda.objeto, Personaje):
-                    pygame.draw.circle(screen, (255, 0, 0),
+                    pygame.draw.circle(screen, (8, 0, 255),
                                        (celda.x * TILE_SIZE + TILE_SIZE // 2,
                                         celda.y * TILE_SIZE + TILE_SIZE // 2),
-                                       TILE_SIZE // 3)
+                                       TILE_SIZE // 2)
 
         pygame.display.flip()
         clock.tick(30)

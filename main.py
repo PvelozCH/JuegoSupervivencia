@@ -106,7 +106,9 @@ def elegir_opcion_refugio(numRefugio):
 
 def cargar_partida():
     clean_screen()
-    print("Has elegido cargar una partida")
+    num = int(input("Ingrese el refugio al que quiere entrar: "))
+
+    return num
 
 def salir():
     print("Hasta pronto")
@@ -125,9 +127,7 @@ def main():
     if opcion == 1:
             elegir_opcion_refugio(nuevo_refugio())
     elif opcion == 2:
-            cargar_partida()
-            num=input(int("Ingrese el refugio al que quiere entrar: "))
-            elegir_opcion_refugio(num)
+            elegir_opcion_refugio(cargar_partida())
     elif opcion == 3:
             salir()
             clean_screen()

@@ -20,11 +20,11 @@ def iniciarMapa(numRefugio):
     cantCasillasY = int((pixelesY/TILE_SIZE))
 
     # Colores de cada cuadro. (RGB)
-    VERDE = (0, 100, 0) # verde base 
+    BASE = (0, 100, 0) # verde base 
     AGUA = (0, 48, 0)   #verde muy oscuro
-    ROCA = (120, 120, 120) 
-    ARENA = (200, 200, 50)
-    MONTAÑA = (139, 69, 19)
+    CASA = (8, 255, 0) 
+    DEPARTAMENTO = (9,232,2)
+    LUGAR_IMPORTANTE = (8,214,1)
 
     #Plantilla para cada una de las celdas del mapa.
     class CeldaMapa:
@@ -39,7 +39,7 @@ def iniciarMapa(numRefugio):
     for x in range(cantCasillasX):
         fila = []
         for y in range(cantCasillasY):
-            fila.append(CeldaMapa(x,y,VERDE))
+            fila.append(CeldaMapa(x,y,BASE))
         mapa.append(fila)
 
     # Crear relieves aleatorios
@@ -47,7 +47,7 @@ def iniciarMapa(numRefugio):
     for _ in range(cantRelieves): # Crea x cantidad de relieves aleatorios
         x = random.randint(0, cantCasillasX - 1)
         y = random.randint(0, cantCasillasY - 1)
-        color = random.choice([AGUA, ROCA, ARENA, MONTAÑA])
+        color = random.choice([BASE, AGUA, CASA, DEPARTAMENTO,LUGAR_IMPORTANTE])
         mapa[x][y].tipo_terreno = color
         
     #traigo el numero del refugio creado en el main
@@ -103,7 +103,7 @@ def iniciarMapa(numRefugio):
 
                 # Dibujar personajes si es que existe
                 if celda.objeto and isinstance(celda.objeto, Personaje):
-                    pygame.draw.circle(screen, (8, 0, 255),
+                    pygame.draw.circle(screen, (255,255,0),
                                        (celda.x * TILE_SIZE + TILE_SIZE // 2,
                                         celda.y * TILE_SIZE + TILE_SIZE // 2),
                                        TILE_SIZE // 2)

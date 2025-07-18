@@ -1,11 +1,19 @@
 #CLASE MAIN - PRINCIPAL
 from Clases import Personaje, Atributos, Arma, Ambiente, Item
-import os,json
+import os,json,platform
 import MapaGrafico as mapa
 
 # --- Métodos dentro del juego
+
+def sistema():
+    so = platform.system()
+    return so
+    
 def clean_screen():
-    os.system('clear')
+    if sistema() == "Windows":
+        os.system("cls")
+    elif sistema() == "Linux":
+        os.system('clear')
 
 def clic_continuar():
     input("Haz clic para continuar: ")

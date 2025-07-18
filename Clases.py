@@ -63,15 +63,17 @@ class Personaje:
     	
     def __str__(self):
         return f"******\nPersonaje:\nNombre={self.nombre}\nVida={self.vida}\nClase={self.clase}\nAtributos={self.atributos}\nArma={self.arma.nombre}"
- 
-        
-#Clase Ambiente
-class Ambiente:
-	def __init__(self, nombre, visibilidad,temperatura):
-		self.nombre=nombre
-		self.visibilidad=visibilidad
-		self.temperatura=temperatura
 		
+#Clase criatura o enemigo
+class Criatura:
+     def __init__(self, nombre, vida, clase,atributos,arma,inventario):
+        self.nombre = nombre
+        self.vida = vida
+        self.clase = clase
+        self.atributos=atributos
+        self.arma=arma
+        self.inventario=inventario
+
 #Clase ATRIBUTOS
 class Atributos:
 	def __init__(self, strenght,perception,endurance,carisma,inteligence,luck):
@@ -128,3 +130,34 @@ class Item:
 		self.nombre=nombre
 		self.descripcion=descripcion
 		self.precio=precio
+        
+#Clase de comidas
+class Comida:
+    def __init__(self,nombre,descripcion,cantCalorias):
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.cantCalorias = cantCalorias
+        
+        
+        
+#Clase Ambiente -- CLASE A USAR A FUTURO EN VERSIONES MEJORADAS
+class Ambiente:
+	def __init__(self, nombre, visibilidad,temperatura):
+		self.nombre=nombre
+		self.visibilidad=visibilidad
+		self.temperatura=temperatura
+        
+        
+#Clase de edificio
+class Edificio:
+    def __init__(self,nombre,color,numPisos,personaje,criatura,comida,item):
+        self.nombre = nombre
+        self.color = color
+        self.numPisos = numPisos
+        self.personaje = personaje
+        self.criatura = criatura
+        self.comida = comida
+        self.item = item
+
+
+    

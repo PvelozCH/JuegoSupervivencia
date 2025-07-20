@@ -15,6 +15,9 @@ def iniciarMapa(numRefugio):
 
     TILE_SIZE = 10  #Tamaño de cada cuadro.
 
+    #Fuente a usar para textos dentro de juego
+    fuente = pygame.font.SysFont("arial", 12)
+
     ## Cantidad de casillas por ancho y por largo
     cantCasillasX = int((pixelesX/TILE_SIZE))
     cantCasillasY = int((pixelesY/TILE_SIZE))
@@ -22,7 +25,7 @@ def iniciarMapa(numRefugio):
     # Colores de cada cuadro. (RGB)
     BASE = (0, 100, 0) # verde base 
     AGUA = (0, 48, 0)   #verde muy oscuro
-    CASA = (8, 255, 0) 
+    CASA = (8, 255, 0) #verde claro intenso
     DEPARTAMENTO = (9,232,2)
     LUGAR_IMPORTANTE = (8,214,1)
 
@@ -50,10 +53,7 @@ def iniciarMapa(numRefugio):
         color = random.choice([BASE, AGUA, CASA, DEPARTAMENTO,LUGAR_IMPORTANTE])
         mapa[x][y].tipo_terreno = color
         
-    #traigo el numero del refugio creado en el main
-    
-    
-    #Cargar personajes desde JSON
+    #Cargar personajes desde Partida creada por jugador
     ruta_personajes = f"saves/Refugio{numRefugio}/personajes.json"
 
     personajes = [] #Lista dinámica de personajes dentro del mapa
@@ -70,8 +70,13 @@ def iniciarMapa(numRefugio):
         # Posicionar personajes en el mapa de manera aleatoria
         for personaje in personajes:
             while True:
+                """Posición aleatoria a través de todo el mapa
                 x = random.randint(0, cantCasillasX - 1)
                 y = random.randint(0, cantCasillasY - 1)
+                """
+                #Los personajes solo aparecen en un lugar del mapa
+                x = random.randint(0,6)
+                y = random.randint(0,6)
                 if mapa[x][y].objeto is None:
                     mapa[x][y].objeto = personaje
                     break
@@ -79,14 +84,23 @@ def iniciarMapa(numRefugio):
         print(f"No se encontró el archivo: {ruta_personajes}")
         personajes = []
 
-    # Bucle principal
+    # Bucle principal -- inicio del mapa
     running = True 
     while running: # mientras se esté ejecutando
+
+        #Obtener posición del mouse
+        mouse_x,mouse_y = pygame.mouse.get_pos()
+        celda_hover = None
+        
         screen.fill((0,0,0)) # se llena la pantalla de color negro
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # Si le doy a la x se cierra
                 running = False
+                
+            if event.type == pygame.KEYDOWN: # Si le doy al esc se cierra
+                 if event.key == pygame.K_ESCAPE:
+                     running = False
 
         # Dibujar el mapa
         for fila in mapa:
@@ -108,6 +122,35 @@ def iniciarMapa(numRefugio):
                                         celda.y * TILE_SIZE + TILE_SIZE // 2),
                                        TILE_SIZE // 2)
 
+                #Detenctar mouse encima de un personaje
+                if (celda.x * TILE_SIZE <= mouse_x <= (celda.x + 1) * TILE_SIZE and
+                                        celda.y * TILE_SIZE <= mouse_y <= (celda.y + 1) * TILE_SIZE):
+                                        celda_hover = celda
+
+
+        #Mostrar pop up con datos de personajes
+        if celda_hover and isinstance(celda_hover.objeto, Personaje):
+            personaje = celda_hover.objeto
+            info = [
+                f"Nombre: {personaje.nombre}",
+                f"Clase: {personaje.clase}",
+                f"Vida: {personaje.vida}"
+            ]
+            tooltip_x = mouse_x + 10
+            tooltip_y = mouse_y + 10
+            padding = 5
+            line_height = 15
+            width = max([fuente.size(text)[0] for text in info]) + padding * 2
+            height = line_height * len(info) + padding * 2
+            pygame.draw.rect(screen, (255, 255, 200), (tooltip_x, tooltip_y, width, height))
+            pygame.draw.rect(screen, (0, 0, 0), (tooltip_x, tooltip_y, width, height), 1)
+
+            for i, text in enumerate(info):
+                render = fuente.render(text, True, (0, 0, 0))
+                screen.blit(render, (tooltip_x + padding, tooltip_y + padding + i * line_height))
+
+                
+        
         pygame.display.flip()
         clock.tick(30)
 

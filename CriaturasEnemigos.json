@@ -1,0 +1,36 @@
+[
+	{
+	        "nombre": "Radscorpion",
+	        "vida": 208,
+	        "clase": "Enemigo",
+	        "atributos": {
+	            "strenght": 7,
+	            "perception": 8,
+	            "endurance": 8,
+	            "carisma": 5,
+	            "inteligence": 7,
+	            "luck": 6
+	        },
+	        "arma": {
+	            "nombre": "Ca\u00f1\u00f3n de Mano"
+	        }
+	},
+	{
+	        "nombre": "Ghoul Ferocious",
+	        "vida": 106,
+	        "clase": "Enemigo",
+	        "atributos": {
+	            "strenght": 8,
+	            "perception": 10,
+	            "endurance": 10,
+	            "carisma": 3,
+	            "inteligence": 4,
+	            "luck": 8
+	        },
+	        "arma": {
+	            "nombre": "Espinas"
+	        }
+	}
+]
+
+

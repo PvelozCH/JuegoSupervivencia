@@ -65,14 +65,40 @@ class Personaje:
 		
 #Clase criatura o enemigo
 class Criatura:
-     def __init__(self, nombre, vida, clase,atributos,arma,inventario,tipo):
-        self.nombre = nombre
-        self.vida = vida
-        self.clase = clase
-        self.atributos=atributos
-        self.arma=arma
-        self.inventario=inventario
-        self.tipo = tipo
+     def __init__(self, nombre, vida, clase,atributos,arma,inventario):
+             self.nombre = nombre
+             self.vida = vida
+             self.clase = clase
+             self.atributos=atributos
+             self.arma=arma
+             self.inventario=inventario
+
+     def setAtributos(self):
+             self.atributos.strenght = random.randint(1,5)+5
+             self.atributos.perception =random.randint(1,5)+5
+             self.atributos.endurance=random.randint(1,5)+5
+             self.atributos.carisma=random.randint(1,5)+5
+             self.atributos.inteligence=random.randint(1,5)+5
+             self.atributos.luck=random.randint(1,5)+5
+
+
+     def to_dict(self):
+             return {
+                'nombre': self.nombre,
+                'vida': self.vida,
+                'clase': self.clase,
+                'atributos': {
+                    'strenght': self.atributos.strenght,
+                    'perception': self.atributos.perception,
+                    'endurance': self.atributos.endurance,
+                    'carisma': self.atributos.carisma,
+                    'inteligence': self.atributos.inteligence,
+                    'luck': self.atributos.luck
+                 },
+                'arma': {
+                    'nombre': self.arma.nombre
+                }
+            }
         
 
 #Clase ATRIBUTOS

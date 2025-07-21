@@ -56,7 +56,7 @@ def nuevo_refugio():
         
      #Crear aleatoriamente a los habitantes del refugio 
      
-     #Se crea lista de personajes 
+     #CREACIÓN DE PERSONAJES DEL REFUGIO
     personajes = []
     
     atributo_inicial = Atributos(0, 0, 0, 0, 0, 0)
@@ -80,6 +80,15 @@ def nuevo_refugio():
         json.dump([personaje.to_dict() for personaje in personajes],
         file, indent=4)
         input("Presione Enter para continuar")
+        
+    #CREACIÓN DE CRIATURAS EN EL MUNDO
+    criaturas = []
+    atributo_inicialC = Atributos(0, 0, 0, 0, 0, 0)
+    
+    #Se crean 25 criaturas aleatorias
+    """
+    for i in range(25):
+    """ 
 
     return num_refugio
         

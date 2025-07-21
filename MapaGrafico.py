@@ -61,7 +61,7 @@ def iniciarMapa(numRefugio):
         with open(ruta_personajes, "r") as file:
             datos = json.load(file)
         for p in datos:
-            # ** agarra todos los atributos del personajes
+            
             atributos = Atributos(**p['atributos'])
             arma = Arma(0, '', p['arma']['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
             personaje = Personaje(p['nombre'], p['vida'], p['clase'], atributos, arma, 0)

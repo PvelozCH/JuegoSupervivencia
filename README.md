@@ -38,7 +38,7 @@
 				Se crea una clase CeldaMapa, para transformar 
 				cada celda en un objeto.
 				- Se crea la matriz del tamaño del mapa.
-				- Se le agrega una cantidad aleatorio de celdas 
+				- Se le agrega una cantidad de celdas aleatorias
 				diferentes a la base (agua, casas y lugares importantes)
 				- Se cargan los personajes del json de personajes.
 				- Se crea lista en donde se dejan esos personajes.
@@ -47,7 +47,9 @@
 				
 				- Se comienza a ejecutar el mapa de color negro.
 				- Obtiene las coordenadas del mouse.
-				- 
+				- Dibuja el mapa por completo y además detecta 
+				si es que el mouse está encima de un personaje para
+				mostrar sus datos en un pop-up.
 				
 				
 				

@@ -1,36 +1,50 @@
 [
-	{
-	        "nombre": "Radscorpion",
-	        "vida": 208,
-	        "clase": "Enemigo",
-	        "atributos": {
-	            "strenght": 7,
-	            "perception": 8,
-	            "endurance": 8,
-	            "carisma": 5,
-	            "inteligence": 7,
-	            "luck": 6
-	        },
-	        "arma": {
-	            "nombre": ""
-	        }
-	},
-	{
-	        "nombre": "Ghoul Ferocious",
-	        "vida": 106,
-	        "clase": "Enemigo",
-	        "atributos": {
-	            "strenght": 8,
-	            "perception": 10,
-	            "endurance": 10,
-	            "carisma": 3,
-	            "inteligence": 4,
-	            "luck": 8
-	        },
-	        "arma": {
-	            "nombre": ""
-	        }
-	}
+  {
+    "nombre": "Deathclaw",
+    "vida": 250,
+    "clase": "Criatura",
+    "atributos": {
+      "strenght": 18,
+      "perception": 10,
+      "endurance": 17,
+      "carisma": 2,
+      "inteligence": 3,
+      "luck": 6
+    },
+    "arma": {
+      "nombre": "Garras letales"
+    }
+  },
+  {
+    "nombre": "Nightkin",
+    "vida": 170,
+    "clase": "Mutante",
+    "atributos": {
+      "strenght": 13,
+      "perception": 8,
+      "endurance": 12,
+      "carisma": 2,
+      "inteligence": 5,
+      "luck": 6
+    },
+    "arma": {
+      "nombre": "Espada sigilosa"
+    }
+  },
+  {
+    "nombre": "Nightkin",
+    "vida": 170,
+    "clase": "Mutante",
+    "atributos": {
+      "strenght": 13,
+      "perception": 8,
+      "endurance": 12,
+      "carisma": 2,
+      "inteligence": 5,
+      "luck": 6
+    },
+    "arma": {
+      "nombre": "Espada sigilosa"
+    }
+  }
 ]
-
-

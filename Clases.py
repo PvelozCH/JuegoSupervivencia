@@ -81,6 +81,15 @@ class Criatura:
              self.atributos.inteligence=random.randint(1,5)+5
              self.atributos.luck=random.randint(1,5)+5
 
+     def setNombreAleatorio(self):
+    	#Primero abre el json que contiene los nombres:
+    	   with open('CriaturasEnemigos.json', 'r') as file:
+    	      nombres= json.load(file)
+    	      # se asignan los nombres aleatorios:
+    	      aleatorio = random.choice(nombres)
+    	      nomJ = aleatorio['nombre']
+    	      self.nombre = nomJ+" "+apJ
+
 
      def to_dict(self):
              return {

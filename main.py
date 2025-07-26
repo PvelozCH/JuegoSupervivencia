@@ -1,6 +1,6 @@
 #CLASE MAIN - PRINCIPAL
 from Clases import Personaje, Atributos, Arma, Ambiente, Item
-import os,json,platform
+import os,json,platform,random
 import MapaGrafico as mapa
 
 # --- Métodos dentro del juego
@@ -82,13 +82,17 @@ def nuevo_refugio():
         input("Presione Enter para continuar")
         
     #CREACIÓN DE CRIATURAS EN EL MUNDO
-    criaturas = []
-    atributo_inicialC = Atributos(0, 0, 0, 0, 0, 0)
     
-    #Se crean 25 criaturas aleatorias
-    """
-    for i in range(25):
-    """ 
+    #Se abre json de base de datos de criaturas
+    with open("CriaturasEnemigos.json","r") as file:
+         criaturas = json.load(file)
+    
+    #Se eligen 25 criaturas al azar
+    criaturas = random.choices(criaturas,k=25)
+
+    #Guardar en la partida la cantidad de criaturas
+    with open(os.path.join(refugio_path,'criaturas.json'),'w') as file:
+         json.dump(criaturas,file,indent=4)
 
     return num_refugio
         

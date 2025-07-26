@@ -2,7 +2,7 @@
 import pygame
 import random
 #Para conectar personajes y elementos dentro del mapa.
-from Clases import Personaje,Atributos,Arma
+from Clases import Personaje,Atributos,Arma,Criatura
 import json
 
 def iniciarMapa(numRefugio):
@@ -46,14 +46,14 @@ def iniciarMapa(numRefugio):
         mapa.append(fila)
 
     # Crear relieves aleatorios
-    cantRelieves = 375
+    cantRelieves = 200
     for _ in range(cantRelieves): # Crea x cantidad de relieves aleatorios
         x = random.randint(0, cantCasillasX - 1)
         y = random.randint(0, cantCasillasY - 1)
         color = random.choice([BASE, AGUA, CASA, DEPARTAMENTO,LUGAR_IMPORTANTE])
         mapa[x][y].tipo_terreno = color
         
-    #Cargar personajes desde Partida creada por jugador
+    #Cargar personajes desde Partida
     ruta_personajes = f"saves/Refugio{numRefugio}/personajes.json"
 
     personajes = [] #Lista dinámica de personajes dentro del mapa
@@ -83,6 +83,36 @@ def iniciarMapa(numRefugio):
     except FileNotFoundError:
         print(f"No se encontró el archivo: {ruta_personajes}")
         personajes = []
+
+    #Cargar criaturas desde Partida
+    ruta_criaturas = f"saves/Refugio{numRefugio}/criaturas.json"
+
+    criaturas = [] #Lista dinamica criaturas
+    try:
+        with open(ruta_criaturas,"r") as file:
+              datos = json.load(file)
+        for c in datos:
+            
+            atributos = Atributos(**c['atributos'])
+            arma = Arma(0, '', c['arma']['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
+            criatura = Criatura(c['nombre'], c['vida'], c['clase'], atributos, arma, 0)
+            criaturas.append(criatura)
+        
+        #posicionar criaturas en mapa aleatoriamente
+        for criatura in criaturas:
+            while True:
+                 x = random.randint(7,cantCasillasX -1)
+                 y = random.randint(7,cantCasillasY -1)
+
+                 if mapa[x][y].objeto is None:
+                    mapa[x][y].objeto = criatura
+                    break
+                 
+    except FileExistsError:
+         print(f"No se encontro archivo: {ruta_criaturas}")
+         criaturas = []
+             
+
 
     # Bucle principal -- inicio del mapa
     running = True 
@@ -121,11 +151,20 @@ def iniciarMapa(numRefugio):
                                        (celda.x * TILE_SIZE + TILE_SIZE // 2,
                                         celda.y * TILE_SIZE + TILE_SIZE // 2),
                                        TILE_SIZE // 2)
+                    
+                # Dibujar criaturas si es que existen
+                if celda.objeto and isinstance(celda.objeto, Criatura):
+                    pygame.draw.circle(screen, (176,5,5),
+                                       (celda.x * TILE_SIZE + TILE_SIZE // 2,
+                                        celda.y * TILE_SIZE + TILE_SIZE // 2),
+                                       TILE_SIZE // 2)
 
                 #Detenctar mouse encima de un personaje
                 if (celda.x * TILE_SIZE <= mouse_x <= (celda.x + 1) * TILE_SIZE and
                                         celda.y * TILE_SIZE <= mouse_y <= (celda.y + 1) * TILE_SIZE):
                                         celda_hover = celda
+
+                
 
 
         #Mostrar pop up con datos de personajes

@@ -196,4 +196,15 @@ class Edificio:
         self.item = item
 
 
+#Clase vehiculo
+class Vehiculo:
+      def __init__(self,modelo,kilometraje,color,tipoManejo):
+            self.modelo = modelo
+            self.kilometraje = kilometraje
+            self.color = color
+            self.tipoManjeo  = tipoManejo
+            
+            
+
+
     

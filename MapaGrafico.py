@@ -23,12 +23,9 @@ def iniciarMapa(numRefugio):
     cantCasillasY = int((pixelesY/TILE_SIZE))
 
     # Colores de cada cuadro. (RGB)
-    BASE = (0, 100, 0) # verde base 
+    BASE = (1,18,1) # verde base 
     AGUA = (0, 48, 0)   #verde muy oscuro
-    CASA = (8, 255, 0) #verde claro intenso
-    DEPARTAMENTO = (9,232,2)
-    LUGAR_IMPORTANTE = (8,214,1)
-
+    CASA = (1,143,1) #verde claro intenso
     #Plantilla para cada una de las celdas del mapa.
     class CeldaMapa:
         def __init__(self, x,y,tipo_terreno,objeto=None):
@@ -46,11 +43,11 @@ def iniciarMapa(numRefugio):
         mapa.append(fila)
 
     # Crear relieves aleatorios
-    cantRelieves = 200
+    cantRelieves = 500
     for _ in range(cantRelieves): # Crea x cantidad de relieves aleatorios
         x = random.randint(0, cantCasillasX - 1)
         y = random.randint(0, cantCasillasY - 1)
-        color = random.choice([BASE, AGUA, CASA, DEPARTAMENTO,LUGAR_IMPORTANTE])
+        color = random.choice([BASE, AGUA, CASA])
         mapa[x][y].tipo_terreno = color
         
     #Cargar personajes desde Partida
@@ -194,6 +191,9 @@ def iniciarMapa(numRefugio):
         clock.tick(30)
 
     pygame.quit()
+
+def vidaMapa():
+     print("codigo para dar vida al mapa :3")
 
 # Ejecutar la función solo si el archivo es el principal
 if __name__ == "__main__":

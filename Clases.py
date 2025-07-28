@@ -1,6 +1,24 @@
 import random
 import json
 
+
+#Clase AgenteVivo, padre de Personaje y de Criatura (y de otras futuras clases)
+class AgenteVivo:
+      def __init__(self,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion):
+            self.hambre = hambre
+            self.sed = sed
+            self.energia = energia
+            self.estado = estado
+            self.memoria = memoria
+            self.nivelEstres = nivelEstres
+            self.fatiga = fatiga
+            self.edad = edad
+            self.reproduccion = reproduccion
+            self.sexo = sexo
+            self.alimentacion = alimentacion
+            
+    
+
 #Clase PERSONAJE
 class Personaje:
     def __init__(self, nombre, vida, clase,atributos,arma,inventario):

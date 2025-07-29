@@ -4,7 +4,11 @@ import json
 
 #Clase AgenteVivo, padre de Personaje y de Criatura (y de otras futuras clases)
 class AgenteVivo:
-      def __init__(self,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion):
+      def __init__(self,nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion):
+            self.nombre = nombre
+            self.vida = vida
+            self.atributos = atributos
+            self.inventario = inventario
             self.hambre = hambre
             self.sed = sed
             self.energia = energia
@@ -16,54 +20,62 @@ class AgenteVivo:
             self.reproduccion = reproduccion
             self.sexo = sexo
             self.alimentacion = alimentacion
-            
+
     
 
 #Clase PERSONAJE
-class Personaje:
-    def __init__(self, nombre, vida, clase,atributos,arma,inventario):
-        self.nombre = nombre
-        self.vida = vida
-        self.clase = clase
-        self.atributos=atributos
+class Personaje(AgenteVivo):
+    def __init__(self,nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion,arma):
+        super().__init__(nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion)
         self.arma=arma
-        self.inventario=inventario
         
          #Se define el arma aleatoriamente 
     def setArmaAleatoria(self):
-    	#Primero abre el json que contiene los nombres:
-    	   with open('Armas.json', 'r') as file:
-    	      armas= json.load(file)
-    	      # se asignan los nombres aleatorios:
-    	      aleatorio = random.choice(armas)
-    	      nomA= aleatorio['nombre']
-    	      self.arma.nombre = nomA
+        with open('Armas.json', 'r') as file:
+             armas = json.load(file)
+             aleatorio = random.choice(armas)
+             nomA = aleatorio['nombre']
+             self.arma = Arma(0, '', nomA, 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
         
         #Se definen sus atributos de manera aleatoria
     def setAtributos(self):
-    	self.atributos.strenght = random.randint(1,5)+5
-    	self.atributos.perception =random.randint(1,5)+5
-    	self.atributos.endurance=random.randint(1,5)+5
-    	self.atributos.carisma=random.randint(1,5)+5
-    	self.atributos.inteligence=random.randint(1,5)+5
-    	self.atributos.luck=random.randint(1,5)+5
+        self.atributos.strenght = random.randint(1,5)+5
+        self.atributos.perception =random.randint(1,5)+5
+        self.atributos.endurance=random.randint(1,5)+5
+        self.atributos.carisma=random.randint(1,5)+5
+        self.atributos.inteligence=random.randint(1,5)+5
+        self.atributos.luck=random.randint(1,5)+5
     	
     	#Se define su nombre aleatoriamente
     def setNombreAleatorio(self):
     	#Primero abre el json que contiene los nombres:
     	   with open('NombresApellidos.json', 'r') as file:
-    	      nombres= json.load(file)
-    	      # se asignan los nombres aleatorios:
-    	      aleatorio = random.choice(nombres)
-    	      nomJ = aleatorio['nombre']
-    	      apJ = aleatorio['apellido']
-    	      self.nombre = nomJ+" "+apJ
+            nombres= json.load(file)
+            aleatorio = random.choice(nombres)
+            nomJ = aleatorio['nombre']
+            apJ = aleatorio['apellido']
+            self.nombre = nomJ+" "+apJ
+
+    def setSexoAleatorio(self,cont,contMujeres):
+          numSexo = random.randint(1,2)
+          if numSexo == 1:
+                self.sexo = "Masculino"
+          else:
+                self.sexo = "Femenino"
+
+          #Si se crearon 5 personajes hombres, entonces que la ultima sea si o si mujer
+          if cont == 5 and contMujeres == 0:
+                self.sexo = "Femenino" 
+          
+          #Si se crearon 5 personajes mujeres, entonces que el ultimo sea si o si hombre
+          if contMujeres == 5:
+                self.sexo = "Masculino"
+                
     	      
     def to_dict(self):
         return {
             'nombre': self.nombre,
             'vida': self.vida,
-            'clase': self.clase,
             'atributos': {
                 'strenght': self.atributos.strenght,
                 'perception': self.atributos.perception,
@@ -72,24 +84,31 @@ class Personaje:
                 'inteligence': self.atributos.inteligence,
                 'luck': self.atributos.luck
             },
+            'hambre': self.hambre,
+            'sed': self.sed,
+            'energia': self.energia,
+            'estado': self.estado,
+            'memoria': self.memoria,
+            'nivelEstres': self.nivelEstres,
+            'fatiga': self.fatiga,
+            'edad':self.edad,
+            'reproduccion':self.reproduccion,
+            'sexo': self.sexo,
+            'alimentacion' : self.alimentacion,
             'arma': {
                 'nombre': self.arma.nombre
             }
         }
-    	      
-    	
+    
     def __str__(self):
-        return f"******\nPersonaje:\nNombre={self.nombre}\nVida={self.vida}\nClase={self.clase}\nAtributos={self.atributos}\nArma={self.arma.nombre}"
-		
+         return f"Nombre: {self.nombre}, Vida: {self.vida}, Sexo: {self.sexo}, Arma: {self.arma.nombre}"
+
+    
 #Clase criatura o enemigo
-class Criatura:
-     def __init__(self, nombre, vida, clase,atributos,arma,inventario):
-             self.nombre = nombre
-             self.vida = vida
-             self.clase = clase
-             self.atributos=atributos
-             self.arma=arma
-             self.inventario=inventario
+class Criatura(AgenteVivo):
+     def __init__(self,nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion,arma):
+        super().__init__(nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion)
+        self.arma=arma
 
      def setAtributos(self):
              self.atributos.strenght = random.randint(1,5)+5
@@ -102,30 +121,42 @@ class Criatura:
      def setNombreAleatorio(self):
     	#Primero abre el json que contiene los nombres:
     	   with open('CriaturasEnemigos.json', 'r') as file:
-    	      nombres= json.load(file)
-    	      # se asignan los nombres aleatorios:
-    	      aleatorio = random.choice(nombres)
-    	      nomJ = aleatorio['nombre']
-    	      self.nombre = nomJ+" "+apJ
+            nombres= json.load(file)
+            aleatorio = random.choice(nombres)
+            nomJ = aleatorio['nombre']
+            self.nombre = nomJ
 
 
      def to_dict(self):
              return {
-                'nombre': self.nombre,
-                'vida': self.vida,
-                'clase': self.clase,
-                'atributos': {
-                    'strenght': self.atributos.strenght,
-                    'perception': self.atributos.perception,
-                    'endurance': self.atributos.endurance,
-                    'carisma': self.atributos.carisma,
-                    'inteligence': self.atributos.inteligence,
-                    'luck': self.atributos.luck
-                 },
-                'arma': {
-                    'nombre': self.arma.nombre
-                }
+            'nombre': self.nombre,
+            'vida': self.vida,
+            'atributos': {
+                'strenght': self.atributos.strenght,
+                'perception': self.atributos.perception,
+                'endurance': self.atributos.endurance,
+                'carisma': self.atributos.carisma,
+                'inteligence': self.atributos.inteligence,
+                'luck': self.atributos.luck
+            },
+            'hambre': self.hambre,
+            'sed': self.sed,
+            'energia': self.energia,
+            'estado': self.estado,
+            'memoria': self.memoria,
+            'nivelEstres': self.nivelEstres,
+            'fatiga': self.fatiga,
+            'edad':self.edad,
+            'reproduccion':self.reproduccion,
+            'sexo': self.sexo,
+            'alimentacion' : self.alimentacion,
+            'arma': {
+                'nombre': self.arma.nombre
             }
+        }
+     
+     def __str__(self):
+          return f"Nombre: {self.nombre}, Vida: {self.vida}, Sexo: {self.sexo}, Arma: {self.arma.nombre}"
         
 
 #Clase ATRIBUTOS

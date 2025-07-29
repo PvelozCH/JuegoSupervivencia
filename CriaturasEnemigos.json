@@ -1,50 +1,80 @@
 [
   {
-    "nombre": "Deathclaw",
-    "vida": 250,
-    "clase": "Criatura",
+    "nombre": "Bandido",
+    "vida": 100,
     "atributos": {
-      "strenght": 18,
-      "perception": 10,
-      "endurance": 17,
-      "carisma": 2,
+      "strenght": 8,
+      "perception": 6,
+      "endurance": 7,
+      "carisma": 3,
+      "inteligence": 5,
+      "luck": 4
+    },
+    "hambre": 60,
+    "sed": 50,
+    "energia": 70,
+    "estado": "Agresivo",
+    "memoria": [],
+    "nivelEstres": 30,
+    "fatiga": 20,
+    "edad": 35,
+    "reproduccion": false,
+    "sexo": "Masculino",
+    "alimentacion": "Omnívoro",
+    "arma": {
+      "nombre": "Pistola oxidada"
+    }
+  },
+  {
+    "nombre": "Lobo salvaje",
+    "vida": 80,
+    "atributos": {
+      "strenght": 7,
+      "perception": 8,
+      "endurance": 6,
+      "carisma": 1,
       "inteligence": 3,
-      "luck": 6
+      "luck": 5
     },
+    "hambre": 80,
+    "sed": 70,
+    "energia": 90,
+    "estado": "Cazando",
+    "memoria": [],
+    "nivelEstres": 10,
+    "fatiga": 15,
+    "edad": 6,
+    "reproduccion": true,
+    "sexo": "Hembra",
+    "alimentacion": "Carnívoro",
     "arma": {
-      "nombre": "Garras letales"
+      "nombre": "Mandíbulas"
     }
   },
   {
-    "nombre": "Nightkin",
-    "vida": 170,
-    "clase": "Mutante",
+    "nombre": "Zombi radiactivo",
+    "vida": 120,
     "atributos": {
-      "strenght": 13,
-      "perception": 8,
-      "endurance": 12,
-      "carisma": 2,
-      "inteligence": 5,
-      "luck": 6
+      "strenght": 10,
+      "perception": 4,
+      "endurance": 9,
+      "carisma": 0,
+      "inteligence": 1,
+      "luck": 2
     },
+    "hambre": 90,
+    "sed": 30,
+    "energia": 40,
+    "estado": "Errante",
+    "memoria": [],
+    "nivelEstres": 0,
+    "fatiga": 50,
+    "edad": 0,
+    "reproduccion": false,
+    "sexo": "Desconocido",
+    "alimentacion": "Necrófago",
     "arma": {
-      "nombre": "Espada sigilosa"
-    }
-  },
-  {
-    "nombre": "Nightkin",
-    "vida": 170,
-    "clase": "Mutante",
-    "atributos": {
-      "strenght": 13,
-      "perception": 8,
-      "endurance": 12,
-      "carisma": 2,
-      "inteligence": 5,
-      "luck": 6
-    },
-    "arma": {
-      "nombre": "Espada sigilosa"
+      "nombre": "Manos podridas"
     }
   }
 ]

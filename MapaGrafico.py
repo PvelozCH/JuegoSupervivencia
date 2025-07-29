@@ -58,10 +58,10 @@ def iniciarMapa(numRefugio):
         with open(ruta_personajes, "r") as file:
             datos = json.load(file)
         for p in datos:
-            
+            #carga la informacion dentro del json
             atributos = Atributos(**p['atributos'])
             arma = Arma(0, '', p['arma']['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
-            personaje = Personaje(p['nombre'], p['vida'], p['clase'], atributos, arma, 0)
+            personaje = Personaje(p['nombre'], p['vida'],atributos,0,p['hambre'],p['sed'],p['energia'],p['estado'],p['memoria'],p['nivelEstres'],p['fatiga'],p['edad'],p['reproduccion'],p['sexo'],p['alimentacion'],arma)
             personajes.append(personaje)
 
         # Posicionar personajes en el mapa de manera aleatoria
@@ -92,7 +92,7 @@ def iniciarMapa(numRefugio):
             
             atributos = Atributos(**c['atributos'])
             arma = Arma(0, '', c['arma']['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
-            criatura = Criatura(c['nombre'], c['vida'], c['clase'], atributos, arma, 0)
+            criatura = Criatura(c['nombre'], c['vida'],atributos,0,c['hambre'],c['sed'],c['energia'],c['estado'],c['memoria'],c['nivelEstres'],c['fatiga'],c['edad'],c['reproduccion'],c['sexo'],c['alimentacion'],arma)
             criaturas.append(criatura)
         
         #posicionar criaturas en mapa aleatoriamente
@@ -169,7 +169,6 @@ def iniciarMapa(numRefugio):
             personaje = celda_hover.objeto
             info = [
                 f"Nombre: {personaje.nombre}",
-                f"Clase: {personaje.clase}",
                 f"Vida: {personaje.vida}"
             ]
             tooltip_x = mouse_x + 10

@@ -63,12 +63,18 @@ def nuevo_refugio():
     arma_inicial = Arma(0, 0, 0, 0, 0, 0, 0, 0,
      0, 0, 0, 0, 0, 0, 0)
     
+    #Contadores de personajes y contadores de mujeres para comprobar que siempre haya al menos una mujer para que se puedan reproducir
+    cont = 0
+    contMujeres = 0
     #Se crean 5 personajes aleatorios
     for i in range(5):
+        cont +=1
         nombre_personaje = f"nom{i+1}"
-        personaje = Personaje(nombre_personaje, 100,
-        "Generica", atributo_inicial, arma_inicial, 0)
+        personaje = Personaje(nombre_personaje, 100,atributo_inicial,0,0,0,100,"tranquilo",0,0,0,18,"Sexual",0,"Omnivoro",arma_inicial)
         personaje.setAtributos()
+        personaje.setSexoAleatorio(cont,contMujeres)
+        if personaje.sexo == "Femenino":
+             contMujeres +=1
         personaje.setNombreAleatorio()
         personaje.setArmaAleatoria()
         print(personaje)

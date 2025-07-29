@@ -46,16 +46,6 @@ class Personaje(AgenteVivo):
         self.atributos.inteligence=random.randint(1,5)+5
         self.atributos.luck=random.randint(1,5)+5
     	
-    	#Se define su nombre aleatoriamente
-    def setNombreAleatorio(self):
-    	#Primero abre el json que contiene los nombres:
-    	   with open('NombresApellidos.json', 'r') as file:
-            nombres= json.load(file)
-            aleatorio = random.choice(nombres)
-            nomJ = aleatorio['nombre']
-            apJ = aleatorio['apellido']
-            self.nombre = nomJ+" "+apJ
-
     def setSexoAleatorio(self,cont,contMujeres):
           numSexo = random.randint(1,2)
           if numSexo == 1:
@@ -70,7 +60,30 @@ class Personaje(AgenteVivo):
           #Si se crearon 5 personajes mujeres, entonces que el ultimo sea si o si hombre
           if contMujeres == 5:
                 self.sexo = "Masculino"
-                
+          return numSexo
+        
+    	#Se define su nombre aleatoriamente dependiendo de su sexo
+    def setNombreAleatorio(self,sexo):
+          nombre = ""
+          apellido = ""
+
+          if sexo == "Masculino":
+                with open('nombresMasculinos.json', 'r') as file:
+                    nombres= json.load(file)
+                    aleatorio = random.choice(nombres)
+                    nombre = aleatorio['nombre']
+          else:
+               with open('nombresFemeninos.json','r') as file:
+                    nombres= json.load(file)
+                    aleatorio = random.choice(nombres)
+                    nombre = aleatorio['nombre']
+
+          with open('apellidos.json','r') as file:
+                    apellidos= json.load(file)
+                    aleatorio = random.choice(apellidos)
+                    apellido = aleatorio['apellido']
+          
+          self.nombre = nombre + " " + apellido
     	      
     def to_dict(self):
         return {
@@ -243,17 +256,3 @@ class Edificio:
         self.criatura = criatura
         self.comida = comida
         self.item = item
-
-
-#Clase vehiculo
-class Vehiculo:
-      def __init__(self,modelo,kilometraje,color,tipoManejo):
-            self.modelo = modelo
-            self.kilometraje = kilometraje
-            self.color = color
-            self.tipoManjeo  = tipoManejo
-            
-            
-
-
-    

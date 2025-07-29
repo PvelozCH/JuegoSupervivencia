@@ -75,7 +75,7 @@ def nuevo_refugio():
         personaje.setSexoAleatorio(cont,contMujeres)
         if personaje.sexo == "Femenino":
              contMujeres +=1
-        personaje.setNombreAleatorio()
+        personaje.setNombreAleatorio(personaje.sexo)
         personaje.setArmaAleatoria()
         print(personaje)
         personajes.append(personaje)

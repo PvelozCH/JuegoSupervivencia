@@ -21,6 +21,8 @@
     "reproduccion": false,
     "sexo": "Masculino",
     "alimentacion": "Omnívoro",
+    "vision":5,
+    "posicion":"posicionBase",
     "arma": {
       "nombre": "Pistola oxidada"
     }
@@ -47,6 +49,8 @@
     "reproduccion": true,
     "sexo": "Hembra",
     "alimentacion": "Carnívoro",
+    "vision":7,
+    "posicion":"posicionBase",
     "arma": {
       "nombre": "Mandíbulas"
     }
@@ -73,6 +77,8 @@
     "reproduccion": false,
     "sexo": "Desconocido",
     "alimentacion": "Necrófago",
+    "vision":3,
+    "posicion":"posicionBase",
     "arma": {
       "nombre": "Manos podridas"
     }

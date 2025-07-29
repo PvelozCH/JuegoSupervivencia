@@ -70,7 +70,7 @@ def nuevo_refugio():
     for i in range(5):
         cont +=1
         nombre_personaje = f"nom{i+1}"
-        personaje = Personaje(nombre_personaje, 100,atributo_inicial,0,0,0,100,"tranquilo",0,0,0,18,"Sexual",0,"Omnivoro",arma_inicial)
+        personaje = Personaje(nombre_personaje, 100,atributo_inicial,0,0,0,100,"tranquilo",0,0,0,18,"Sexual",0,"Omnivoro",5,"posicionBase",arma_inicial)
         personaje.setAtributos()
         personaje.setSexoAleatorio(cont,contMujeres)
         if personaje.sexo == "Femenino":

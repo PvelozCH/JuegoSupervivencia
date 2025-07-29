@@ -3,6 +3,7 @@ import pygame
 import random
 #Para conectar personajes y elementos dentro del mapa.
 from Clases import Personaje,Atributos,Arma,Criatura
+from comportamiento import ArbolComportamiento
 import json
 
 def iniciarMapa(numRefugio):
@@ -61,7 +62,7 @@ def iniciarMapa(numRefugio):
             #carga la informacion dentro del json
             atributos = Atributos(**p['atributos'])
             arma = Arma(0, '', p['arma']['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
-            personaje = Personaje(p['nombre'], p['vida'],atributos,0,p['hambre'],p['sed'],p['energia'],p['estado'],p['memoria'],p['nivelEstres'],p['fatiga'],p['edad'],p['reproduccion'],p['sexo'],p['alimentacion'],arma)
+            personaje = Personaje(p['nombre'], p['vida'],atributos,0,p['hambre'],p['sed'],p['energia'],p['estado'],p['memoria'],p['nivelEstres'],p['fatiga'],p['edad'],p['reproduccion'],p['sexo'],p['alimentacion'],p['vision'],p['posicion'],arma)
             personajes.append(personaje)
 
         # Posicionar personajes en el mapa de manera aleatoria
@@ -92,7 +93,7 @@ def iniciarMapa(numRefugio):
             
             atributos = Atributos(**c['atributos'])
             arma = Arma(0, '', c['arma']['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
-            criatura = Criatura(c['nombre'], c['vida'],atributos,0,c['hambre'],c['sed'],c['energia'],c['estado'],c['memoria'],c['nivelEstres'],c['fatiga'],c['edad'],c['reproduccion'],c['sexo'],c['alimentacion'],arma)
+            criatura = Criatura(c['nombre'], c['vida'],atributos,0,c['hambre'],c['sed'],c['energia'],c['estado'],c['memoria'],c['nivelEstres'],c['fatiga'],c['edad'],c['reproduccion'],c['sexo'],c['alimentacion'],c['vision'],c['posicion'],arma)
             criaturas.append(criatura)
         
         #posicionar criaturas en mapa aleatoriamente
@@ -103,6 +104,14 @@ def iniciarMapa(numRefugio):
 
                  if mapa[x][y].objeto is None:
                     mapa[x][y].objeto = criatura
+                    criatura.posicion = (x,y)
+
+                    #Una vez creadas las criaturas, comienzan a ejecutar comportamientos
+                    arbol = ArbolComportamiento(criatura, mapa)
+                    resultado = arbol.ejecutar()
+                    
+                    #Imprime en pantalla lo que las criaturas ven
+                    #print(f"Criatura {criatura.nombre} vio: {criatura.memoria}")
                     break
                  
     except FileExistsError:

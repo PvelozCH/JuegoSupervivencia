@@ -2,90 +2,37 @@ import random
 import json
 
 
-#Clase AgenteVivo, padre de Personaje y de Criatura (y de otras futuras clases)
+#Clase AgenteVivo
 class AgenteVivo:
-      def __init__(self,nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion):
-            self.nombre = nombre
-            self.vida = vida
-            self.atributos = atributos
-            self.inventario = inventario
-            self.hambre = hambre
-            self.sed = sed
-            self.energia = energia
-            self.estado = estado
-            self.memoria = memoria
-            self.nivelEstres = nivelEstres
-            self.fatiga = fatiga
-            self.edad = edad
-            self.reproduccion = reproduccion
-            self.sexo = sexo
-            self.alimentacion = alimentacion
+    def __init__(self, nombre, vida, atributos, inventario, hambre, sed, energia,
+                 estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion):
+        self.nombre = nombre
+        self.vida = vida
+        self.atributos = atributos
+        self.inventario = inventario
+        self.hambre = hambre
+        self.sed = sed
+        self.energia = energia
+        self.estado = estado
+        self.memoria = memoria
+        self.nivelEstres = nivelEstres
+        self.fatiga = fatiga
+        self.edad = edad
+        self.reproduccion = reproduccion
+        self.sexo = sexo
+        self.alimentacion = alimentacion
+        self.vision = vision
+        self.posicion = posicion
 
-    
-
-#Clase PERSONAJE
-class Personaje(AgenteVivo):
-    def __init__(self,nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion,arma):
-        super().__init__(nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion)
-        self.arma=arma
-        
-         #Se define el arma aleatoriamente 
-    def setArmaAleatoria(self):
-        with open('Armas.json', 'r') as file:
-             armas = json.load(file)
-             aleatorio = random.choice(armas)
-             nomA = aleatorio['nombre']
-             self.arma = Arma(0, '', nomA, 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
-        
-        #Se definen sus atributos de manera aleatoria
     def setAtributos(self):
-        self.atributos.strenght = random.randint(1,5)+5
-        self.atributos.perception =random.randint(1,5)+5
-        self.atributos.endurance=random.randint(1,5)+5
-        self.atributos.carisma=random.randint(1,5)+5
-        self.atributos.inteligence=random.randint(1,5)+5
-        self.atributos.luck=random.randint(1,5)+5
-    	
-    def setSexoAleatorio(self,cont,contMujeres):
-          numSexo = random.randint(1,2)
-          if numSexo == 1:
-                self.sexo = "Masculino"
-          else:
-                self.sexo = "Femenino"
+        self.atributos.strenght = random.randint(6, 10)
+        self.atributos.perception = random.randint(6, 10)
+        self.atributos.endurance = random.randint(6, 10)
+        self.atributos.carisma = random.randint(6, 10)
+        self.atributos.inteligence = random.randint(6, 10)
+        self.atributos.luck = random.randint(6, 10)
 
-          #Si se crearon 5 personajes hombres, entonces que la ultima sea si o si mujer
-          if cont == 5 and contMujeres == 0:
-                self.sexo = "Femenino" 
-          
-          #Si se crearon 5 personajes mujeres, entonces que el ultimo sea si o si hombre
-          if contMujeres == 5:
-                self.sexo = "Masculino"
-          return numSexo
-        
-    	#Se define su nombre aleatoriamente dependiendo de su sexo
-    def setNombreAleatorio(self,sexo):
-          nombre = ""
-          apellido = ""
-
-          if sexo == "Masculino":
-                with open('nombresMasculinos.json', 'r') as file:
-                    nombres= json.load(file)
-                    aleatorio = random.choice(nombres)
-                    nombre = aleatorio['nombre']
-          else:
-               with open('nombresFemeninos.json','r') as file:
-                    nombres= json.load(file)
-                    aleatorio = random.choice(nombres)
-                    nombre = aleatorio['nombre']
-
-          with open('apellidos.json','r') as file:
-                    apellidos= json.load(file)
-                    aleatorio = random.choice(apellidos)
-                    apellido = aleatorio['apellido']
-          
-          self.nombre = nombre + " " + apellido
-    	      
-    def to_dict(self):
+    def to_dict_base(self):
         return {
             'nombre': self.nombre,
             'vida': self.vida,
@@ -104,72 +51,166 @@ class Personaje(AgenteVivo):
             'memoria': self.memoria,
             'nivelEstres': self.nivelEstres,
             'fatiga': self.fatiga,
-            'edad':self.edad,
-            'reproduccion':self.reproduccion,
+            'edad': self.edad,
+            'reproduccion': self.reproduccion,
             'sexo': self.sexo,
-            'alimentacion' : self.alimentacion,
-            'arma': {
-                'nombre': self.arma.nombre
-            }
+            'alimentacion': self.alimentacion,
+            'vision': self.vision,
+            'posicion':self.posicion
         }
-    
+
+
+#CLASE PERSONAJE
+class Personaje(AgenteVivo):
+    def __init__(self, nombre, vida, atributos, inventario, hambre, sed, energia,
+                 estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion,arma):
+        super().__init__(nombre, vida, atributos, inventario, hambre, sed, energia,
+                         estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion)
+        self.arma = arma
+
+    def setArmaAleatoria(self):
+        with open('Armas.json', 'r') as file:
+            armas = json.load(file)
+        aleatorio = random.choice(armas)
+        self.arma = Arma(0, '', aleatorio['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
+
+    def setSexoAleatorio(self, cont, contMujeres):
+        numSexo = random.randint(1, 2)
+        if numSexo == 1:
+            self.sexo = "Masculino"
+        else:
+            self.sexo = "Femenino"
+
+        if cont == 5 and contMujeres == 0:
+            self.sexo = "Femenino"
+        if contMujeres == 5:
+            self.sexo = "Masculino"
+        return numSexo
+
+    def setNombreAleatorio(self, sexo):
+        nombre = ""
+        apellido = ""
+
+        if sexo == "Masculino":
+            with open('nombresMasculinos.json', 'r') as file:
+                nombres = json.load(file)
+                nombre = random.choice(nombres)['nombre']
+        else:
+            with open('nombresFemeninos.json', 'r') as file:
+                nombres = json.load(file)
+                nombre = random.choice(nombres)['nombre']
+
+        with open('apellidos.json', 'r') as file:
+            apellidos = json.load(file)
+            apellido = random.choice(apellidos)['apellido']
+
+        self.nombre = f"{nombre} {apellido}"
+
+    def to_dict(self):
+        data = super().to_dict_base()
+        data['arma'] = {'nombre': self.arma.nombre}
+        return data
+
     def __str__(self):
-         return f"Nombre: {self.nombre}, Vida: {self.vida}, Sexo: {self.sexo}, Arma: {self.arma.nombre}"
+        return f"Nombre: {self.nombre}, Vida: {self.vida}, Sexo: {self.sexo}, Arma: {self.arma.nombre}"
 
-    
-#Clase criatura o enemigo
+#CLASE CRIATURA
 class Criatura(AgenteVivo):
-     def __init__(self,nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion,arma):
-        super().__init__(nombre,vida,atributos,inventario,hambre,sed,energia,estado,memoria,nivelEstres,fatiga,edad,reproduccion,sexo,alimentacion)
-        self.arma=arma
+    def __init__(self, nombre, vida, atributos, inventario, hambre, sed, energia,
+                 estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion, arma):
+        super().__init__(nombre, vida, atributos, inventario, hambre, sed, energia,
+                         estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion)
+        self.arma = arma
 
-     def setAtributos(self):
-             self.atributos.strenght = random.randint(1,5)+5
-             self.atributos.perception =random.randint(1,5)+5
-             self.atributos.endurance=random.randint(1,5)+5
-             self.atributos.carisma=random.randint(1,5)+5
-             self.atributos.inteligence=random.randint(1,5)+5
-             self.atributos.luck=random.randint(1,5)+5
+    def setNombreAleatorio(self):
+        with open('CriaturasEnemigos.json', 'r') as file:
+            nombres = json.load(file)
+            self.nombre = random.choice(nombres)['nombre']
 
-     def setNombreAleatorio(self):
-    	#Primero abre el json que contiene los nombres:
-    	   with open('CriaturasEnemigos.json', 'r') as file:
-            nombres= json.load(file)
-            aleatorio = random.choice(nombres)
-            nomJ = aleatorio['nombre']
-            self.nombre = nomJ
+    #Metodos de comportamiento, IA dentro del mapa.
 
+    #VER ENTORNO
+    def ver_entorno(self, mapa):
+         visibles = []
+         rango = self.vision
+         for dx in range(-rango, rango + 1):
+            for dy in range(-rango, rango + 1):
+                 x = self.posicion[0] + dx
+                 y = self.posicion[1] + dy
+                 if 0 <= x < len(mapa) and 0 <= y < len(mapa[0]):
+                      celda = mapa[x][y]
+                      if celda.objeto is not None and celda.objeto != self:
+                           visibles.append((x, y, celda.objeto))
+         return visibles
 
-     def to_dict(self):
-             return {
-            'nombre': self.nombre,
-            'vida': self.vida,
-            'atributos': {
-                'strenght': self.atributos.strenght,
-                'perception': self.atributos.perception,
-                'endurance': self.atributos.endurance,
-                'carisma': self.atributos.carisma,
-                'inteligence': self.atributos.inteligence,
-                'luck': self.atributos.luck
-            },
-            'hambre': self.hambre,
-            'sed': self.sed,
-            'energia': self.energia,
-            'estado': self.estado,
-            'memoria': self.memoria,
-            'nivelEstres': self.nivelEstres,
-            'fatiga': self.fatiga,
-            'edad':self.edad,
-            'reproduccion':self.reproduccion,
-            'sexo': self.sexo,
-            'alimentacion' : self.alimentacion,
-            'arma': {
-                'nombre': self.arma.nombre
-            }
-        }
-     
-     def __str__(self):
-          return f"Nombre: {self.nombre}, Vida: {self.vida}, Sexo: {self.sexo}, Arma: {self.arma.nombre}"
+    #MOVERSE POR EL MAPA
+    def moverse(self, mapa):
+        opciones = []
+        x0, y0 = self.posicion
+        for dx in [-1, 0, 1]:
+            for dy in [-1, 0, 1]:
+                x = x0 + dx
+                y = y0 + dy
+                if (dx != 0 or dy != 0) and 0 <= x < len(mapa) and 0 <= y < len(mapa[0]):
+                    if mapa[x][y].objeto is None:
+                        opciones.append((x, y))
+
+        if opciones:
+            nuevo_x, nuevo_y = random.choice(opciones)
+            mapa[nuevo_x][nuevo_y].objeto = self
+            mapa[x0][y0].objeto = None
+            self.posicion = (nuevo_x, nuevo_y)
+
+    #BUSCAR COMIDA
+    def buscar_comida(self, mapa):
+        visibles = self.ver_entorno(mapa)
+        for x, y, objeto in visibles:
+            if isinstance(objeto, comida):
+                return (x, y, objeto)
+        return None
+    
+    #COMER COMIDA
+    def comer(self, objeto):
+        if isinstance(objeto, comida):
+            self.hambre = max(0, self.hambre - objeto.valorNutricional)
+
+    #ACTUAR GENERICO
+    def actuar(self, mapa):
+        comida_encontrada = self.buscar_comida(mapa)
+        if comida_encontrada:
+            x, y, planta = comida_encontrada
+            self.mover_hacia(x, y, mapa)
+            if self.posicion == (x, y):
+                self.comer(planta)
+                mapa[x][y].objeto = None
+        else:
+            self.moverse(mapa)
+    
+    #MOVERSE HACIA UN OBJETIVO
+    def mover_hacia(self, objetivo_x, objetivo_y, mapa):
+        x0, y0 = self.posicion
+        dx = objetivo_x - x0
+        dy = objetivo_y - y0
+        paso_x = 1 if dx > 0 else -1 if dx < 0 else 0
+        paso_y = 1 if dy > 0 else -1 if dy < 0 else 0
+        nuevo_x = x0 + paso_x
+        nuevo_y = y0 + paso_y
+
+        if 0 <= nuevo_x < len(mapa) and 0 <= nuevo_y < len(mapa[0]):
+            if mapa[nuevo_x][nuevo_y].objeto is None:
+                mapa[nuevo_x][nuevo_y].objeto = self
+                mapa[x0][y0].objeto = None
+                self.posicion = (nuevo_x, nuevo_y)
+
+    #METODOS DE IMPRESION DE DATOS
+    def to_dict(self):
+        data = super().to_dict_base()
+        data['arma'] = {'nombre': self.arma.nombre}
+        return data
+
+    def __str__(self):
+        return f"Nombre: {self.nombre}, Vida: {self.vida}, Sexo: {self.sexo}, Arma: {self.arma.nombre}"
+
         
 
 #Clase ATRIBUTOS
@@ -256,3 +297,14 @@ class Edificio:
         self.criatura = criatura
         self.comida = comida
         self.item = item
+
+class comida:
+     def __init__(self,nombre,color,valorNutricional):
+          self.nombre = nombre
+          self.color = color
+          self.valorNutricional = valorNutricional
+     
+class planta(comida):
+     def __init__(self, nombre, color, valorNutricional):
+          super().__init__(nombre, color, valorNutricional)
+     

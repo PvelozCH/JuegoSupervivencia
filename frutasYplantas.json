@@ -1,0 +1,26 @@
+[
+    {
+        "nombre":"Manzana",
+        "color":"Rojo",
+        "valorNutricional":10,
+        "cantidad":50
+    },
+    {
+        "nombre":"Hierbas",
+        "color":"Verde",
+        "valorNutricional":2,
+        "cantidad":100
+    },
+    {
+        "nombre":"Bayas",
+        "color":"Azul",
+        "valorNutricional":5,
+        "cantidad":80
+    },
+    {
+        "nombre":"Hongos",
+        "color":"Amarillo",
+        "valorNutricional":8,
+        "cantidad":60
+    }
+]

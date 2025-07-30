@@ -2,7 +2,7 @@
 import pygame
 import random
 #Para conectar personajes y elementos dentro del mapa.
-from Clases import Personaje,Atributos,Arma,Criatura
+from Clases import Personaje,Atributos,Arma,Criatura,Planta
 from comportamiento import ArbolComportamiento
 import json
 
@@ -111,13 +111,38 @@ def iniciarMapa(numRefugio):
                     resultado = arbol.ejecutar()
                     
                     #Imprime en pantalla lo que las criaturas ven
-                    #print(f"Criatura {criatura.nombre} vio: {criatura.memoria}")
+                    print(f"Criatura {criatura.nombre} vio: {criatura.memoria}")
                     break
                  
     except FileExistsError:
          print(f"No se encontro archivo: {ruta_criaturas}")
          criaturas = []
-             
+    
+
+    #Cargar vegetacion desde Partida
+    ruta_vegetacion = f"saves/Refugio{numRefugio}/vegetacion.json"
+
+    plantas = [] #Lista dinamica criaturas
+    try:
+        with open(ruta_vegetacion,"r") as file:
+              datos = json.load(file)
+        for v in datos:
+            planta = Planta(v['nombre'],v['color'],v['valorNutricional'],v['cantidad'])
+            plantas.append(planta)
+        
+        #posicionar criaturas en mapa aleatoriamente
+        for planta in plantas:
+            while True:
+                 x = random.randint(7,cantCasillasX -1)
+                 y = random.randint(7,cantCasillasY -1)
+
+                 if mapa[x][y].objeto is None:
+                    mapa[x][y].objeto = planta
+                    break
+                 
+    except FileExistsError:
+         print(f"No se encontro archivo: {ruta_vegetacion}")
+         plantas = []
 
 
     # Bucle principal -- inicio del mapa
@@ -199,9 +224,6 @@ def iniciarMapa(numRefugio):
         clock.tick(30)
 
     pygame.quit()
-
-def vidaMapa():
-     print("codigo para dar vida al mapa :3")
 
 # Ejecutar la función solo si el archivo es el principal
 if __name__ == "__main__":

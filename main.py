@@ -100,6 +100,20 @@ def nuevo_refugio():
     with open(os.path.join(refugio_path,'criaturas.json'),'w') as file:
          json.dump(criaturas,file,indent=4)
 
+    #CREACION DE FRUTAS Y PLANTAS EN EL MUNDO
+
+    #Se abre json de base de datos de frutas y plantas
+    with open("frutasYplantas.json","r") as file:
+         plantas = json.load(file)
+    
+    #Se eligen 120 criaturas al azar
+    plantas = random.choices(plantas,k=120)
+
+    #Guardar en la partida la cantidad de criaturas
+    with open(os.path.join(refugio_path,'vegetacion.json'),'w') as file:
+         json.dump(plantas,file,indent=4)
+
+
     return num_refugio
         
         

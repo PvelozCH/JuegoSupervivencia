@@ -298,13 +298,27 @@ class Edificio:
         self.comida = comida
         self.item = item
 
-class comida:
-     def __init__(self,nombre,color,valorNutricional):
+class Comida:
+     def __init__(self,nombre,color,valorNutricional,cantidad):
           self.nombre = nombre
           self.color = color
           self.valorNutricional = valorNutricional
+          self.cantidad = cantidad
+
      
-class planta(comida):
-     def __init__(self, nombre, color, valorNutricional):
-          super().__init__(nombre, color, valorNutricional)
      
+class Planta(Comida):
+     def __init__(self, nombre, color, valorNutricional, cantidad):
+          super().__init__(nombre, color, valorNutricional, cantidad)
+          self.consumida = False
+
+    #Conecta directamente con la criatura que se la come.
+     def ser_comida(self,criatura):
+          if not self.consumida:
+               criatura.hambre = max(0, criatura.hambre - self.valorNutricional)
+               self.cantidad -= 1
+               if self.cantidad <= 0:
+                    self.consumida = True
+               return True
+          return False
+    

@@ -5,7 +5,7 @@
 	-- Paso a paso : 
 		#Primero Muestra el menu de opciones.
 		#Permite elegir una opcion al usuario.
-		#OPCION 1 : 
+		**OPCION 1** 
 			Permite a usuario crear nuevo refugio y gestionarlo.
 			
 			#CREACIÓN NUEVO REFUGIO 
@@ -17,39 +17,60 @@
 				- Dentro de la clase Personaje se crean atributos
 				aleatorios, le da una arma aleatoria(Armas.json) 
 				y le da nombre y apellido aleatorios(NombresApellidos.json)
-			- Los 5 personajes se guardan dentro de un json dentro de 
-			una carpeta(ejem: Refugio21).
+			- Los 5 personajes se guardan dentro de un json dentro de la carpeta saves
 			
-		#OPCION 2 : 
+		**OPCION 2** 
 			Permite cargar la partida y gestionarlo
 			
 			#Carga de refugio
 			- Pide al usuario que ingrese el refugio que quiere 
 			cargar.
-		#OPCION 3 :
+
+		**OPCION 3**
 			Se sale del juego
+
+
 			
-		##Una vez creado o cargado el refugio.
-			- Muestra en pantalla las opciones dentro de un refugio
+	-- Una vez creado o cargado el refugio muestra en pantalla las opciones dentro de este
+	
 			# 1. Salir a explorar
 				- Se inicia el MapaGrafico.py 
+				
+## MapaGrafico.py
 				- Se inicializa tamaño del mapa, tamaño de cuadros de
 				este, cantidad de casillas y colores a utilizar.
 				Se crea una clase CeldaMapa, para transformar 
 				cada celda en un objeto.
 				- Se crea la matriz del tamaño del mapa.
 				- Se le agrega una cantidad de celdas aleatorias
-				diferentes a la base (agua, casas y lugares importantes)
+				diferentes a la base (casas, edificios y lugares importantes)
 				- Se cargan los personajes del json de personajes.
 				- Se crea lista en donde se dejan esos personajes.
 				- Deja a los personajes dentro del mapa en un lugar
 				aleatorio.
-				
 				- Se comienza a ejecutar el mapa de color negro.
 				- Obtiene las coordenadas del mouse.
 				- Dibuja el mapa por completo y además detecta 
 				si es que el mouse está encima de un personaje para
 				mostrar sus datos en un pop-up.
-				
+				- Se cargan las criaturas/animales. 
+				- Cada una de estas tiene su propio arbol de comportamientos (IA).
+
+## Clases.py
+	-- **AgenteVivo**: Clase base. Contiene atributos comunes a todos los seres vivos del juego (vida, hambre, sed, energía, atributos, estado, memoria, estrés, fatiga, edad, sexo, alimentación, visión, posición).
+  		- Métodos clave: 
+    	- `to_dict_base()`: Para serializar el estado base.
+    	- `setAtributos()`: Para inicializar atributos.
+
+	--**Personaje**: Hereda de `AgenteVivo`. Representa los personajes jugables, con métodos para la gestión de atributos y sexo.
+	-- **Criatura**: Hereda de `AgenteVivo`. Es la base de los enemigos/animales controlados por IA.
+		- Métodos principales (IA integrada):
+			- `ver_entorno(mapa)`: Devuelve objetos/entidades cercanas dentro del rango de visión.
+			- `moverse(mapa)`: Movimiento aleatorio si no hay nada relevante cerca.
+			- `buscar_comida(mapa)`: Busca comida en el entorno visible.
+			- `comer(objeto)`: Consume comida y reduce el hambre.
+			- `actuar(mapa)`: Lógica de decisión: si hay comida, va hacia ella y la consume; si no, se mueve aleatoriamente.
+			- `mover_hacia(x, y, mapa)`: Mueve la criatura hacia unas coordenadas objetivo.
+
 				
 				

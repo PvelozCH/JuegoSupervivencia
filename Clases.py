@@ -117,10 +117,12 @@ class Personaje(AgenteVivo):
 #CLASE CRIATURA
 class Criatura(AgenteVivo):
     def __init__(self, nombre, vida, atributos, inventario, hambre, sed, energia,
-                 estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion, arma):
+                 estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion, arma,enemigos = None):
         super().__init__(nombre, vida, atributos, inventario, hambre, sed, energia,
                          estado, memoria, nivelEstres, fatiga, edad, reproduccion, sexo, alimentacion, vision,posicion)
         self.arma = arma
+        self.enemigos = enemigos if enemigos else []
+
 
     def setNombreAleatorio(self):
         with open('CriaturasEnemigos.json', 'r') as file:
@@ -128,6 +130,14 @@ class Criatura(AgenteVivo):
             self.nombre = random.choice(nombres)['nombre']
 
     #Metodos de comportamiento, IA dentro del mapa.
+
+    #Determina si la criatura que ve es enemiga o no
+    def es_enemigo(self,otro):
+         if isinstance(otro,Personaje):
+              return True # Todas las criaturas atacan a los personajes
+         elif isinstance(otro,Criatura):
+              return otro.nombre in self.enemigos
+         return False
 
     #VER ENTORNO
     def ver_entorno(self, mapa):

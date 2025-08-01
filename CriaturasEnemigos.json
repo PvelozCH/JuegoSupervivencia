@@ -23,6 +23,7 @@
     "alimentacion": "Omnívoro",
     "vision":5,
     "posicion":"posicionBase",
+    "enemigos":["Zombi radioactivo","Lobo salvaje"],
     "arma": {
       "nombre": "Pistola oxidada"
     }
@@ -51,6 +52,7 @@
     "alimentacion": "Carnívoro",
     "vision":7,
     "posicion":"posicionBase",
+    "enemigos":["Bandido","Zombi radioactivo"],
     "arma": {
       "nombre": "Mandíbulas"
     }
@@ -79,6 +81,7 @@
     "alimentacion": "Necrófago",
     "vision":3,
     "posicion":"posicionBase",
+    "enemigos":["Bandido","Lobo salvaje"],
     "arma": {
       "nombre": "Manos podridas"
     }

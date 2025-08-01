@@ -93,8 +93,8 @@ def nuevo_refugio():
     with open("CriaturasEnemigos.json","r") as file:
          criaturas = json.load(file)
     
-    #Se eligen 25 criaturas al azar
-    criaturas = random.choices(criaturas,k=25)
+    #Se eligen x criaturas al azar
+    criaturas = random.choices(criaturas,k=40)
 
     #Guardar en la partida la cantidad de criaturas
     with open(os.path.join(refugio_path,'criaturas.json'),'w') as file:

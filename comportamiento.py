@@ -1,4 +1,5 @@
 from Clases import Planta,Personaje,Criatura
+import random
 # =========================
 # ESTADOS DE EJECUCIÓN
 # =========================
@@ -73,9 +74,11 @@ class NodoAtacar:
         self.mapa = mapa
 
     def ejecutar(self):
-        # Buscamos objetivos en la memoria (vistos recientemente)
+        # Buscamos objetivos en la memoria (vistos recientemente) / ataca personajes y otro tipo de criaturas
         objetivos = [obj for obj in self.criatura.memoria 
-                    if isinstance(obj['objeto'], (Personaje, Criatura))]
+                    if (isinstance(obj['objeto'], Personaje) or 
+                        (isinstance(obj['objeto'],Criatura) and 
+                         self.criatura.es_enemigo(obj['objeto'])))]
         
         if not objetivos:
             return FALLO

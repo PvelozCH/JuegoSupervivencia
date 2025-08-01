@@ -14,6 +14,9 @@ def iniciarMapa(numRefugio):
     screen = pygame.display.set_mode((pixelesX, pixelesY))
     clock = pygame.time.Clock() 
 
+
+
+
     TILE_SIZE = 10  #Tamaño de cada cuadro.
 
     #Fuente a usar para textos dentro de juego
@@ -93,7 +96,7 @@ def iniciarMapa(numRefugio):
             
             atributos = Atributos(**c['atributos'])
             arma = Arma(0, '', c['arma']['nombre'], 0, '', '', 0, 0, '', 0, 0, 0, 0, '', '')
-            criatura = Criatura(c['nombre'], c['vida'],atributos,0,c['hambre'],c['sed'],c['energia'],c['estado'],c['memoria'],c['nivelEstres'],c['fatiga'],c['edad'],c['reproduccion'],c['sexo'],c['alimentacion'],c['vision'],c['posicion'],arma)
+            criatura = Criatura(c['nombre'], c['vida'],atributos,0,c['hambre'],c['sed'],c['energia'],c['estado'],c['memoria'],c['nivelEstres'],c['fatiga'],c['edad'],c['reproduccion'],c['sexo'],c['alimentacion'],c['vision'],c['posicion'],arma,enemigos=c.get('enemigos',[]))
             criaturas.append(criatura)
         
         #posicionar criaturas en mapa aleatoriamente
@@ -106,12 +109,6 @@ def iniciarMapa(numRefugio):
                     mapa[x][y].objeto = criatura
                     criatura.posicion = (x,y)
 
-                    #Una vez creadas las criaturas, comienzan a ejecutar comportamientos
-                    arbol = ArbolComportamiento(criatura, mapa)
-                    resultado = arbol.ejecutar()
-                    
-                    #Imprime en pantalla lo que las criaturas ven
-                    print(f"Criatura {criatura.nombre} vio: {criatura.memoria}")
                     break
                  
     except FileExistsError:
@@ -145,15 +142,22 @@ def iniciarMapa(numRefugio):
          plantas = []
 
 
+    #Variables de conteo de ejecucion del mapa
+    tiempo_ultima_actualizacion = 0
+    intervalo_actualizacion = 3000 #Numero de milisegundos que demoran en actuar la IA
+
     # Bucle principal -- inicio del mapa
     running = True 
     while running: # mientras se esté ejecutando
+
+        tiempo_actual = pygame.time.get_ticks()
+        
 
         #Obtener posición del mouse
         mouse_x,mouse_y = pygame.mouse.get_pos()
         celda_hover = None
         
-        screen.fill((0,0,0)) # se llena la pantalla de color negro
+       
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # Si le doy a la x se cierra
@@ -162,6 +166,27 @@ def iniciarMapa(numRefugio):
             if event.type == pygame.KEYDOWN: # Si le doy al esc se cierra
                  if event.key == pygame.K_ESCAPE:
                      running = False
+
+
+        #Actualizacion de IA cada 4 segundos.
+        if tiempo_actual - tiempo_ultima_actualizacion >= intervalo_actualizacion:
+             tiempo_ultima_actualizacion = tiempo_actual
+
+             #Actualizacion de criaturas 
+             for x in range(len(mapa)):
+                  for y in range(len(mapa[0])):
+                       celda = mapa[x][y]
+                       if celda.objeto and isinstance(celda.objeto, Criatura):
+                            criatura = celda.objeto
+
+                            #verificar posicion de criatura
+                            if criatura.posicion == (x,y):
+                                 arbol = ArbolComportamiento(criatura,mapa)
+                                 resultado = arbol.ejecutar()
+                                 print(f"{criatura.nombre} en ({x},{y}): {resultado}")
+        
+        
+        screen.fill((0,0,0)) # se llena la pantalla de color negro
 
         # Dibujar el mapa
         for fila in mapa:

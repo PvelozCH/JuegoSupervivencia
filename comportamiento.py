@@ -56,8 +56,12 @@ class NodoMoverAleatorio:
         posibles = []
         for nx, ny in direcciones:
             if 0 <= nx < len(self.mapa) and 0 <= ny < len(self.mapa[0]):
-                if self.mapa[nx][ny].objeto is None:  # Solo celdas vacías
+                """
+                if self.mapa[nx][ny].objeto is None:  # Movimiento solo si es que la celda esta vacia.
                     posibles.append((nx, ny))
+                """
+                #Por ahora que se pueda mover a donde sea, aunque haya una criatura o un objeto.
+                posibles.append((nx,ny))
         
         if posibles:
             nuevo_x, nuevo_y = random.choice(posibles)

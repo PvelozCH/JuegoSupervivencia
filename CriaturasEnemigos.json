@@ -50,7 +50,7 @@
     "reproduccion": true,
     "sexo": "Hembra",
     "alimentacion": "Carnívoro",
-    "vision":7,
+    "vision":10,
     "posicion":"posicionBase",
     "enemigos":["Bandido","Zombi radioactivo"],
     "arma": {
@@ -79,7 +79,7 @@
     "reproduccion": false,
     "sexo": "Desconocido",
     "alimentacion": "Necrófago",
-    "vision":3,
+    "vision":4,
     "posicion":"posicionBase",
     "enemigos":["Bandido","Lobo salvaje"],
     "arma": {

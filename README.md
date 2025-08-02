@@ -71,6 +71,23 @@
 			- `comer(objeto)`: Consume comida y reduce el hambre.
 			- `actuar(mapa)`: Lógica de decisión: si hay comida, va hacia ella y la consume; si no, se mueve aleatoriamente.
 			- `mover_hacia(x, y, mapa)`: Mueve la criatura hacia unas coordenadas objetivo.
+			- `es_enemigos` : En caso de que el objeto sea un Personaje o una criatura distinta, arroja True
+			
+## Comportamiento.py
+	**NodoVerEntorno** : Busca por objetos dentro del mapa. En caso de que ve algo devuelve EXITO, en caso contrario
+	devuelve FALLO. Guarda la informacion en la memoria de la criatura.
 
-				
-				
+	**NodoMoverAleatorio** : Considera 8 posibles movimientos. Solo en caso de movimiento valido se mueve.
+
+	**NodoAtacar** : Filtra si es que hay enemigos, en el caso de que si, ataca al mas cercano. 
+
+	**NodoBuscarComida** : Busca comida, elige comida, se dirige a comida e intenta comerla.
+
+	`Nodos compuestos`
+
+	**NodoSecuencia** : Ejecuta hijos hasta que uno falle.
+	**NodoSelector** : Ejecuta hijos hasta que uno tenga exito.
+
+	`Prioridades` : 1)Buscar comida
+				  2)Atacar enemigos
+				  3)Moverse aleatoriamente. 

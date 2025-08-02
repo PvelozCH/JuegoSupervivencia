@@ -175,7 +175,7 @@ class Criatura(AgenteVivo):
     def buscar_comida(self, mapa):
         visibles = self.ver_entorno(mapa)
         for x, y, objeto in visibles:
-            if isinstance(objeto, comida):
+            if isinstance(objeto, Comida):
                 return (x, y, objeto)
         return None
     

@@ -9,27 +9,42 @@ import json
 def iniciarMapa(numRefugio):
     # Inicializar Pygame
     pygame.init()
+    
+    # =========================
+    # VARIABLES IMPORTANTES
+    # =========================
+
+    #Tamano mapa
+    TILE_SIZE = 10  #Tamaño de cada cuadro.
+    fuente = pygame.font.SysFont("arial", 12) #Fuente de texto
+
+    #Colores a usar
+    BASE = (1,18,1) # verde base 
+    AGUA = (0, 48, 0)   #verde muy oscuro
+    CASA = (1,143,1) #verde claro intenso
+
+    #Cantidad de relieves aleatorios
+    cantRelieves = 385
+
+    #Variables de conteo de ejecucion del mapa
+    tiempo_ultima_actualizacion = 0
+    intervalo_actualizacion = 1500 #Numero de milisegundos que demoran en actuar la IA
+
+    #Cantidad de cuadros en el mapa
     pixelesX = 800
     pixelesY = 600
+
+    ### FIN DE VARIABLES IMPORTANTES
+
+    
     screen = pygame.display.set_mode((pixelesX, pixelesY))
     clock = pygame.time.Clock() 
 
 
-
-
-    TILE_SIZE = 10  #Tamaño de cada cuadro.
-
-    #Fuente a usar para textos dentro de juego
-    fuente = pygame.font.SysFont("arial", 12)
-
     ## Cantidad de casillas por ancho y por largo
     cantCasillasX = int((pixelesX/TILE_SIZE))
     cantCasillasY = int((pixelesY/TILE_SIZE))
-
-    # Colores de cada cuadro. (RGB)
-    BASE = (1,18,1) # verde base 
-    AGUA = (0, 48, 0)   #verde muy oscuro
-    CASA = (1,143,1) #verde claro intenso
+   
     #Plantilla para cada una de las celdas del mapa.
     class CeldaMapa:
         def __init__(self, x,y,tipo_terreno,objeto=None):
@@ -46,8 +61,6 @@ def iniciarMapa(numRefugio):
             fila.append(CeldaMapa(x,y,BASE))
         mapa.append(fila)
 
-    # Crear relieves aleatorios
-    cantRelieves = 500
     for _ in range(cantRelieves): # Crea x cantidad de relieves aleatorios
         x = random.randint(0, cantCasillasX - 1)
         y = random.randint(0, cantCasillasY - 1)
@@ -140,11 +153,6 @@ def iniciarMapa(numRefugio):
     except FileExistsError:
          print(f"No se encontro archivo: {ruta_vegetacion}")
          plantas = []
-
-
-    #Variables de conteo de ejecucion del mapa
-    tiempo_ultima_actualizacion = 0
-    intervalo_actualizacion = 3000 #Numero de milisegundos que demoran en actuar la IA
 
     # Bucle principal -- inicio del mapa
     running = True 
